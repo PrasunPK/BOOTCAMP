@@ -10,7 +10,7 @@ public class YellowBallRule implements Rule {
     @Override
     public boolean canBeAdded(Balls balls, Ball ballToAdd) throws GreenBallFullException, RedBallFullException, YellowBallException {
         if (ballToAdd.isOfColor(Color.YELLOW)) {
-            int totalBalls = balls.numberOfBalls(Color.BLUE) + balls.numberOfBalls(Color.GREEN) + balls.numberOfBalls(Color.RED);
+            int totalBalls = balls.size();
             if (balls.numberOfBalls(Color.YELLOW) < (totalBalls * 0.4)) {
                 return true;
             }
