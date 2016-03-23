@@ -4,6 +4,7 @@ import ball.Ball;
 import ball.Balls;
 import exceptions.BagIsFullException;
 import exceptions.GreenBallFullException;
+import exceptions.YellowBallException;
 import rules.RedBallFullException;
 import rules.Rule;
 import rules.Rules;
@@ -27,7 +28,7 @@ public class Bag {
         return new Bag(capacity, balls, rules);
     }
 
-    public boolean add(Ball ball) throws BagIsFullException, GreenBallFullException, RedBallFullException {
+    public boolean add(Ball ball) throws BagIsFullException, GreenBallFullException, RedBallFullException, YellowBallException {
         if(isFull())
             throw new BagIsFullException();
         for (Rule rule : rules) {

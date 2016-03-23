@@ -24,4 +24,8 @@ public class Ball {
     public static Ball createYellowBall() {
         return new Ball(Color.YELLOW);
     }
+
+    public static Ball createBlueBall() {
+        return new Ball(Color.BLUE);
+    }
 }

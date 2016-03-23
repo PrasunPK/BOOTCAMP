@@ -4,6 +4,7 @@ import ball.Ball;
 import ball.Balls;
 import exceptions.BagIsFullException;
 import exceptions.GreenBallFullException;
+import exceptions.YellowBallException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,7 +17,7 @@ public class BagTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void can_add_one_green_ball() throws BagIsFullException, GreenBallFullException, RedBallFullException {
+    public void can_add_one_green_ball() throws BagIsFullException, GreenBallFullException, RedBallFullException, YellowBallException {
         Rules rules = new Rules();
         rules.add(new GreenBallRule());
 
@@ -29,7 +30,7 @@ public class BagTest {
     }
 
     @Test
-    public void can_add_three_green_balls_only() throws BagIsFullException, GreenBallFullException, RedBallFullException {
+    public void can_add_three_green_balls_only() throws BagIsFullException, GreenBallFullException, RedBallFullException, YellowBallException {
         Rules rules = new Rules();
         rules.add(new GreenBallRule());
 
@@ -47,7 +48,7 @@ public class BagTest {
     }
 
     @Test
-    public void can_add_red_ball_only_when_there_is_at_least_one_green_ball() throws BagIsFullException, GreenBallFullException, RedBallFullException {
+    public void can_add_red_ball_only_when_there_is_at_least_one_green_ball() throws BagIsFullException, GreenBallFullException, RedBallFullException, YellowBallException {
         Rules rules = new Rules();
         rules.add(new GreenBallRule());
         rules.add(new RedBallRule());
@@ -62,7 +63,7 @@ public class BagTest {
     }
 
     @Test
-    public void throws_exception_when_there_is_no_green_ball_in_the_collection() throws RedBallFullException, BagIsFullException, GreenBallFullException {
+    public void throws_exception_when_there_is_no_green_ball_in_the_collection() throws RedBallFullException, BagIsFullException, GreenBallFullException, YellowBallException {
         Rules rules = new Rules();
         rules.add(new GreenBallRule());
         rules.add(new RedBallRule());
@@ -75,7 +76,7 @@ public class BagTest {
     }
 
     @Test
-    public void can_not_add_four_red_balls_when_there_are_two_green_balls() throws RedBallFullException, BagIsFullException, GreenBallFullException {
+    public void can_not_add_four_red_balls_when_there_are_two_green_balls() throws RedBallFullException, BagIsFullException, GreenBallFullException, YellowBallException {
         Rules rules = new Rules();
         rules.add(new GreenBallRule());
         rules.add(new RedBallRule());
@@ -95,7 +96,7 @@ public class BagTest {
     }
 
     @Test
-    public void can_add_two_yellow_balls_when_there_are_five_other_balls() throws RedBallFullException, BagIsFullException, GreenBallFullException {
+    public void can_add_two_yellow_balls_when_there_are_five_other_balls() throws RedBallFullException, BagIsFullException, GreenBallFullException, YellowBallException {
         Rules rules = new Rules();
         rules.add(new GreenBallRule());
         rules.add(new RedBallRule());
@@ -116,5 +117,37 @@ public class BagTest {
 
         assertEquals(7, bag.size());
 
+    }
+
+
+    @Test
+    public void can_not_add_any_yellow_ball_when_there_is_no_balls() throws GreenBallFullException, YellowBallException, RedBallFullException, BagIsFullException {
+        Rules rules = new Rules();
+        rules.add(new GreenBallRule());
+        rules.add(new RedBallRule());
+        rules.add(new YellowBallRule());
+
+        Balls balls = new Balls();
+        Bag bag = Bag.createBag(12, balls, rules);
+
+        thrown.expect(YellowBallException.class);
+        bag.add(Ball.createYellowBall());
+
+    }
+
+    @Test
+    public void can_add_any_amount_of_blue_balls() throws GreenBallFullException, YellowBallException, RedBallFullException, BagIsFullException {
+
+        Rules rules = new Rules();
+        rules.add(new GreenBallRule());
+        rules.add(new RedBallRule());
+        rules.add(new YellowBallRule());
+
+        Balls balls = new Balls();
+        Bag bag = Bag.createBag(3, balls, rules);
+
+        bag.add(Ball.createBlueBall());
+        bag.add(Ball.createBlueBall());
+        bag.add(Ball.createBlueBall());
     }
 }
