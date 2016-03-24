@@ -2,6 +2,8 @@ package ball;
 
 import color.Color;
 
+import java.util.ArrayList;
+
 public class Ball {
     private Color color;
 
@@ -27,5 +29,9 @@ public class Ball {
 
     public static Ball createBlueBall() {
         return new Ball(Color.BLUE);
+    }
+
+    public boolean addColor(ArrayList<String> colors) {
+        return colors.add(this.color.name());
     }
 }

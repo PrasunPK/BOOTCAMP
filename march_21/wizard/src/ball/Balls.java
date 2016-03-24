@@ -28,4 +28,11 @@ public class Balls{
     public boolean add(Ball ball) {
         return balls.add(ball);
     }
+
+    public ArrayList<String> createColorSummary() {
+        ArrayList<String> colors = new ArrayList<>();
+        for (Ball ball : balls)
+            ball.addColor(colors);
+        return colors;
+    }
 }
